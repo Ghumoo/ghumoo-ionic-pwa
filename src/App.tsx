@@ -3,6 +3,9 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import GeoLocation from './GeoLocation';
+import Logs from './pages/Logs';
+import { ActivityLogProvider } from './ActivityLogContext';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -27,15 +30,18 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route path="/geolocation" component={GeoLocation} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/geolocation" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <ActivityLogProvider>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route path="/logs" component={Logs} />
+          <Route path="/geolocation" component={GeoLocation} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/geolocation" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </ActivityLogProvider>
   </IonApp>
 );
 
