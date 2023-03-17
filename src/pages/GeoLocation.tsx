@@ -6,7 +6,7 @@ import './GeoLocation.css';
 import { GoogleMap, LoadScriptNext, Marker, Polyline, Circle } from '@react-google-maps/api';
 
 import { startMotionTracking, processAccelerometerData } from './MotionTracking';
-import { useActivityLog } from './ActivityLogContext';
+import { useActivityLog } from '../contexts/ActivityLogContext';
 
 const containerStyle = {
   width: '100%',
@@ -58,6 +58,9 @@ const GeoLocation: React.FC = () => {
       }
       return updatedPaths;
     });
+    // Always add the log with the current activity
+    addLog({ latitude: latLng.lat, longitude: latLng.lng, activity });
+
     if (activity !== prevActivity) {
       console.log(`Activity changed: ${prevActivity} -> ${activity}`);
       addLog({ latitude: latLng.lat, longitude: latLng.lng, activity });

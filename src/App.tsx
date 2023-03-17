@@ -2,9 +2,9 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
-import GeoLocation from './GeoLocation';
+import GeoLocation from './pages/GeoLocation';
 import Logs from './pages/Logs';
-import { ActivityLogProvider } from './ActivityLogContext';
+import { ActivityLogProvider } from './contexts/ActivityLogContext';
 
 
 /* Core CSS required for Ionic components to work properly */
