@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonText } from '@ionic/react';
 import { Geolocation } from '@capacitor/geolocation';
 import { App } from '@capacitor/app';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { LatLngTuple } from 'leaflet';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import './GeoLocation.css';
+import { GoogleMap, LoadScriptNext, Marker } from '@react-google-maps/api';
 
 const checkAndRequestPermissions = async () => {
   const { location: locationStatus } = await Geolocation.checkPermissions();
@@ -67,23 +67,24 @@ const GeoLocation: React.FC = () => {
             <p>Error: {error}</p>
           </IonText>
         ) : (
-          <div className="map-container">
-            <MapContainer
-              style={{ width: '100%', height: '100%' }}
-              center={[location.latitude, location.longitude] as LatLngTuple}
+          <LoadScriptNext
+            id="script-loader"
+            googleMapsApiKey="AIzaSyCKIvXqQIQT2_HGDiqwmhjAvS_w1J-jLxA"
+            loadingElement={<div>Loading...</div>}
+            libraries={['geometry', 'drawing', 'places']}
+          >
+            <GoogleMap
+              mapContainerStyle={{ width: '100%', height: '100%' }}
+              center={{ lat: location.latitude, lng: location.longitude }}
               zoom={15}
             >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker position={[location.latitude, location.longitude]}>
-                <Popup>Your current location</Popup>
-              </Marker>
-            </MapContainer>
-          </div>
+              <Marker position={{ lat: location.latitude, lng: location.longitude }} />
+            </GoogleMap>
+          </LoadScriptNext>
         )}
       </IonContent>
+
+
 
     </IonPage>
   );
