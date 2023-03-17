@@ -1,0 +1,7 @@
+{
+  "name": "ghumoo-ionic-pwa-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
